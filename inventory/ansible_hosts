@@ -1,0 +1,10 @@
+
+[controller]
+controller hostname=controller
+
+[network]
+network	hostname=network
+
+[compute]
+compute1 hostname=compute1
+compute2 hostname=compute2

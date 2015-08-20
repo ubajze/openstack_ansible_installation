@@ -1,0 +1,49 @@
+---
+- hosts: all
+  remote_user: ubajzelj
+  tasks:
+   # Ping all hosts
+   - ping:
+
+   # Change hostname to the hostname variable
+   - hostname: name={{ hostname }}
+     become: yes
+     become_method: sudo
+
+   # Create hosts file from variables and copy file to remote destination /etc/hosts 
+   - template: src=./templates/hosts dest=/etc/hosts
+     become: yes
+     become_method: sudo
+
+   # Install NTP package
+   - apt: name=ntp state=present
+     become: yes
+     become_method: sudo
+
+   # Copy ntp.conf file with NTP server settings to destination
+   - template: src=./templates/ntp.conf dest=/etc/
+     become: yes
+     become_method: sudo
+
+   # Restart NTP service
+   - service: name=ntp state=restarted
+     become: yes
+     become_method: sudo
+
+   # Install Ubuntu-cloud-keyring packages
+   - apt: name=ubuntu-cloud-keyring state=present
+     become: yes
+     become_method: sudo
+
+   # Add aditional repo in source list
+   - apt_repository: repo='deb http://ubuntu-cloud.archive.canonical.com/ubuntu trusty-updates/kilo main' state=present
+     become: yes
+     become_method: sudo
+
+   # Update all packages to the latest version
+  
+   - apt: upgrade=dist
+     become: yes
+     become_method: sudo
+
+

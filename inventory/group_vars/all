@@ -1,0 +1,2 @@
+---
+ntp_servers: [ ntp1.arnes.si, ntp2.arnes.si ]
